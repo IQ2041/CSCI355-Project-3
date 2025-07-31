@@ -86,7 +86,7 @@ function selectAnswer(selectedOption, correctAnswer) {
   }
 }
 
-// Remove login check
+
 // Show a welcome message if available
 window.addEventListener('load', () => {
   const username = sessionStorage.getItem("username");
