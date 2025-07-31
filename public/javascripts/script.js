@@ -67,3 +67,17 @@ guestButton.addEventListener('click', ()=> {
     window.location.href = './quiz.html';
 })
 
+function resetQuiz() {
+  sessionStorage.removeItem("finalScore");
+  currentQuestionIndex = 0;
+  score = 0;
+
+  if (timer) {
+    clearInterval(timer);
+  }
+
+  
+  fetchQuestions().then(() => {
+    startQuiz();
+  });
+}
