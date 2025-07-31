@@ -4,7 +4,7 @@ Website is deployed at: https://app.netlify.com/projects/iqquizapp/overview
 Ivan:
 
 
-Roel:
+Roel: Connected API URL to retrieve  the questions while taking the quiz. Created a quiz.js file that picks randonm questions which pulls from the API and how it shows correct/incorrect feedback after clicking each answer choice. 
 
 
 Saul:
