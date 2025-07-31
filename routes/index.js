@@ -63,20 +63,26 @@ router.post("/signup/submit", async (req, res) => {
 });
 
 router.post("/signin/submit", async (req, res) => {
-  //Working on backend sign in functionallty. 
-  const {username, password} = req.body;
-  
-  try{
-    const userCollection = getCollection('users');
-    const signedUpUser = await userCollection.findOne({ username });
+  const { username, password } = req.body;
 
-    if(!signedUpUser || signedUpUser.password !== password){
-     return res.status(401).render('signin', { error: 'Invalid username or password' });
+  try {
+    const signedUpUser = await User.findOne({ username });
+    if (!signedUpUser) {
+      return res.render("signin", { error: "User not found!" });
     }
-    res.render('quiz', {username: signedUpUser.username});
-  }catch (e) {
-    res.status(500).send('Internal sever error');
+
+    const match = await bcrypt.compare(password, signedUpUser.password);
+    if (!match) {
+      return res.render("signin", { error: "Invalid password!" });
+    }
+
+    // Redirect with username in the URL query
+    res.redirect(`/quiz?username=${signedUpUser.username}`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).render("signin", { error: "Server error" });
   }
 });
+
 
 module.exports = router;
